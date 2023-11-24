@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -41,4 +42,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function paymentPlan()
+    {
+        return $this->hasOne(UserPaymentPlan::class, 'user_id');
+    }
+
+    public function activePaymentPlan()
+    {
+        return $this->hasOne(UserPaymentPlan::class, 'user_id')->where('end_date', '>', now())->latest();
+    }
 }
