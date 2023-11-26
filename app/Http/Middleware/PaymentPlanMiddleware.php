@@ -20,7 +20,7 @@ class PaymentPlanMiddleware
     {
         $user = Auth::user();
 
-        if ($user && $user->role == UserType::CUSTOMER && empty($user->activePaymentPlan()->first())) {
+        if ($user && $user->type == UserType::CUSTOMER && empty($user->activePaymentPlan()->first())) {
             return redirect()->route('payment-plan');
         }
         
