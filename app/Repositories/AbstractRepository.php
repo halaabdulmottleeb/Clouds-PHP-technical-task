@@ -146,12 +146,8 @@ class AbstractRepository
     }
     public function delete($id)
     {
-        try {
             return $this->model->destroy($id);
-        } catch (\Illuminate\Database\QueryException $exception) {
-            Log::debug($exception);
-            throw new QueryException('Something went wrong');
-        }
+        
     }
     public function getItem($idOrModel)
     {
